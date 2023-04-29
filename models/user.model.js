@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
         validate: {
             validator: function (value) {
                 // Use a regular expression to validate the password format
-                return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value);
+                return /^.{8,}$/.test(value);
             },
             message:
                 'password must be at least 8 characters long and contain at least one letter and one number',
