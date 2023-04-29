@@ -8,6 +8,6 @@ authRoutes.use(bodyParser.json());
 
 authRoutes.post('/register', signup);
 
-authRoutes.post('/signin', signin);
+authRoutes.post('/login', signin);
 
 module.exports = authRoutes;
