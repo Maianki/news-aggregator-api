@@ -46,21 +46,41 @@ Start the server
 ```http
   POST /register
 ```
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `fulName`      | `string` | **Required**. fullName of registered user |
+| `email`      | `string` | **Required**. email of user to be registered |
+| `password`      | `string` | **Required**. password of user has to be atleast 8 character long |
+| `preferences`      | `object` | An object with sources and categories as keys that takes array of news sources and categories|
+
 
 #### login user
 ```http
   POST /login
 ```
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `email`      | `string` | **Required**. email of user to be registered |
+| `password`      | `string` | **Required**. password of user has to be atleast 8 character long |
 
+
+#### get user preferences
 ```http
   GET/preferences
 ```
+
+
+#### update user preferences
 ```http
   PUT /preferences
 ```
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `preferences`      | `object` | An object with sources and categories as keys that takes array of news sources and categories|
 
 
+
+#### get news for user based on preferences
 ```http
   GET /news
 ```
-
