@@ -3,8 +3,9 @@ const routes = express.Router();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
-const authRoutes = require('./routes/auth.route');
 const mongoose = require('mongoose');
+const authRoutes = require('./routes/auth.route');
+const newsRoutes = require('./routes/userNews.route');
 require('dotenv').config();
 
 app.use(cors());
@@ -12,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(routes);
 routes.use('/', authRoutes);
+routes.use('/', newsRoutes);
 const PORT = 3000;
 
 //Connect to database

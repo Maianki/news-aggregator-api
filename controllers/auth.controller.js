@@ -1,6 +1,6 @@
-var bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
-var User = require('../models/user.model');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user.model');
 
 const signup = function (req, res) {
     const user = new User({
@@ -55,13 +55,13 @@ const signin = function (req, res) {
 
                 return res.status(200).send({
                     statusCode: 200,
+                    message: 'login successfull!',
                     user: {
                         id: user._id,
                         fullName: user.fullName,
                         email: user.email,
                         preferences: user.preferences,
                     },
-                    message: 'login successfull!',
                     accessToken: token,
                 });
             } else {
