@@ -33,15 +33,7 @@ Start the server
 
 ## API Reference
 
-#### Get all tasks
-
-```http
-  GET /tasks
-```
-
-##### endpoint to fetch all tasks 
-
-#### reguster user
+#### register user
 
 ```http
   POST /register
