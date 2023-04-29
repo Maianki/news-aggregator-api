@@ -46,7 +46,7 @@ const updateUserPreferences = (req, res) => {
     }
 };
 
-const getUserNews = (req, res) => {
+const getUserNews = async (req, res) => {
     if (!req.user && req.message) {
         return res.status(403).send({
             statusCode: 403,
@@ -55,26 +55,42 @@ const getUserNews = (req, res) => {
     }
 
     let { sources, categories } = req.user.preferences;
-    let url = `https://newsapi.org/v2/top-headlines?category=${sources.join(
-        ','
-    )}&apiKey=${process.env.NEWS_API_KEY}`;
-    let url1 = `https://newsapi.org/v2/top-headlines?category=${categories.join(
-        ','
-    )}&apiKey=${process.env.NEWS_API_KEY}`;
 
-    Promise.all([getNews(url), getNews(url1)])
-        .then((data) => {
-            res.status(200).json({
-                statusCode: 200,
-                news: data,
-            });
-        })
-        .catch((err) => {
-            res.status(500).json({
+    let result = [];
+    if (sources.length > 0) {
+        let url = `https://newsapi.org/v2/top-headlines?sources=${sources.join(
+            ','
+        )}&apiKey=${process.env.NEWS_API_KEY}`;
+
+        try {
+            const data = await getNews(url);
+            result.push(data);
+        } catch (err) {
+            return res.status(500).json({
                 statusCode: 500,
                 message: err,
             });
-        });
+        }
+    }
+    if (categories.length > 0) {
+        let url1 = `https://newsapi.org/v2/top-headlines?category=${categories.join(
+            ','
+        )}&apiKey=${process.env.NEWS_API_KEY}`;
+        try {
+            const data = await getNews(url1);
+            result.push(data);
+        } catch (err) {
+            return res.status(500).json({
+                statusCode: 500,
+                message: err,
+            });
+        }
+    }
+
+    res.status(200).json({
+        statusCode: 200,
+        news: [...result],
+    });
 };
 
 const getNews = (url) => {
