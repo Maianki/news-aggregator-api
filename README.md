@@ -1,5 +1,5 @@
 
-# TASK MANAGER API
+# NEWS AGGREGATOR API
 
 These are APIs for news Aggregator
 
